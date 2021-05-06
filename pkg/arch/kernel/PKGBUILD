@@ -1,7 +1,7 @@
 # Maintainer: Blaž Hrastnik <blaz@mxxn.io>
 # Maintainer: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
 
-pkgbase=linux-surface
+pkgbase=linux-surface-anbox
 pkgver=5.11.16.arch1
 pkgrel=2
 pkgdesc='Linux'
@@ -37,6 +37,7 @@ source=(
   0008-surface-sensors.patch
   0009-cameras.patch
   0010-ath10k-firmware-override.patch
+  anbox.config
 )
 validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
@@ -56,7 +57,9 @@ sha256sums=('541ecfcadb70310a8f48de6e1cd36045d4547bc75101a823b7f93595175accf0'
             '4b95076e1b859363a69693922f30cd92c64f291a9dc17942044973965c8b12f9'
             '5c14fea6a0fb7c385fc5807db75c7ad8292a46e94ac9c9d6c41c3396c42d4253'
             'e55e28acbf8e0fd6c0df305e84e83280d65871a2f2a147c42b186172883f0d26'
-            '9c2eabdb03ff9724b77ad2efa0c4864ca8f76b403725b4e7f7583eb2f4e1fdbf')
+            '9c2eabdb03ff9724b77ad2efa0c4864ca8f76b403725b4e7f7583eb2f4e1fdbf'
+            '1c28662292c4a3cf08ca7150daf8f16a622b74e7fa9ff44b206a8bffc3705844'
+          )
 
 
 export KBUILD_BUILD_HOST=archlinux
@@ -87,7 +90,7 @@ prepare() {
   echo "Setting config..."
   # cp ../config .config
   # merge the two configs together
-  ./scripts/kconfig/merge_config.sh -m ../config ../surface.config ../arch.config
+  ./scripts/kconfig/merge_config.sh -m ../config ../surface.config ../arch.config ../anbox.config
   make olddefconfig
 
   make -s kernelrelease > version
