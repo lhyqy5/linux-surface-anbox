@@ -23,14 +23,14 @@ jobs:
         pacman -Syu --noconfirm
         pacman -S --noconfirm sudo binutils fakeroot grep base-devel git sbsigntools libffi python
 
-    #- name: Setup secureboot certificate
-      #env:
-        #SB_KEY: ${{ secrets.SURFACE_SB_KEY }}
-      #run: |
-        #cd pkg
+    - name: Setup secureboot certificate
+      env:
+        SB_KEY: ${{ secrets.SURFACE_SB_KEY }}
+      run: |
+        cd pkg
 
         #Install the surface secureboot certificate
-        #echo "$SB_KEY" | base64 -d > arch/kernel/MOK.key
+        echo "$SB_KEY" | base64 -d > arch/kernel/MOK.key
         #cp keys/surface.crt arch/kernel/MOK.crt
 
     - name: Build
